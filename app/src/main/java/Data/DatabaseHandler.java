@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Model.Contact;
 import Utils.Util;
 
@@ -39,6 +42,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //CRUD operation: create read update delete
+
+    //add a contact
     public void addContact(Contact contact){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -52,6 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    //get one contact
     public Contact getContact(int id){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -71,6 +77,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return resContact;
 
+    }
+
+    //get all contact
+    public List<Contact> getAllContacts(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        List<Contact> contactList = new ArrayList<>();
+
+        //select all contact
+        String selectAll = "SELECT * FROM " + Util.TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectAll,null);
+
+        //loop through our contact
+        if(cursor.moveToFirst()){
+            do{
+                Contact contact = new Contact();
+                contact.setId(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setPhoneNumber(cursor.getString(2));
+
+                //add contact object to our contact list
+                contactList.add(contact);
+
+
+            }while(cursor.moveToNext());
+        }
+        return contactList;
     }
 
 }
