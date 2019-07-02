@@ -19,30 +19,35 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHandler dbHandler = new DatabaseHandler(this);
 
         //Insert contact
-        Log.d("Insert", "incert in...");
-        dbHandler.addContact(new Contact("Ken", "1234567890"));
-        dbHandler.addContact(new Contact("Alice", "1111111111"));
-        dbHandler.addContact(new Contact("Bob", "22222222222"));
-        dbHandler.addContact(new Contact("Cindy", "333333333333"));
+        Log.d("Insert||", "incert in...");
+        dbHandler.addContact(new Contact("Ken", "123"));
+        dbHandler.addContact(new Contact("Ariel", "456"));
 
         //read all elements on database
-        Log.d("Reading", "Reading all contacts");
+        Log.d("Read||", "Reading all contacts...");
         List<Contact> contactList = dbHandler.getAllContacts();
+
+
 
         for(Contact c:contactList){
             String log = "ID: " + c.getId() + " , Name: "+ c.getName()+" , Phone: "+ c.getPhoneNumber();
-            Log.d("Result", log);
+            Log.d("Result||   ", log);
         }
 
         //get one contact
         Contact oneContact = dbHandler.getContact(1);
-        Log.d("One Contact", "ID: " + oneContact.getId() + " , Name: "+ oneContact.getName()+" , Phone: "+ oneContact.getPhoneNumber());
+        Log.d("GetOne||", "ID: " + oneContact.getId() + " , Name: "+ oneContact.getName()+" , Phone: "+ oneContact.getPhoneNumber());
 
         //update contact
         oneContact.setName("pauloooooooooo");
         int newContact = dbHandler.updateContact(oneContact);
-        Log.d("One Contact", "updated! ID: " + oneContact.getId() + " , Name: "+ oneContact.getName()+" , Phone: "+ oneContact.getPhoneNumber());
+        Log.d("GetOne||", "updated! ID: " + oneContact.getId() + " , Name: "+ oneContact.getName()+" , Phone: "+ oneContact.getPhoneNumber());
 
+        //delete contact
+        //TODO delete does not work...
+        //dbHandler.deleteContact(dbHandler.getContact(5));
 
+        //count the number of row in table
+        Log.d("Count|| ", String.valueOf(dbHandler.getContactsCount()));
     }
 }

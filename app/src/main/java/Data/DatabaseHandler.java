@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //CRUD operation: create read update delete
 
-    //add a contact
+        //add a contact
     public void addContact(Contact contact){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -54,7 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    //get one contact
+        //get one contact
     public Contact getContact(int id){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -76,7 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    //get all contact
+        //get all contact
     public List<Contact> getAllContacts(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -103,7 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return contactList;
     }
 
-    //update Contact
+        //update Contact
     public int updateContact(Contact contact){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -115,6 +115,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.update(Util.TABLE_NAME,values,Util.KEY_ID+"=?",
                 new String[] {String.valueOf(contact.getId())});
 
+    }
+
+        //delete single contact
+    public void deleteContact(Contact contact){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Util.DATABASE_NAME, Util.KEY_ID+"=?",
+                new String[] {String.valueOf(contact.getId())});
+
+        db.close();
+    }
+
+        //get contact count
+    public int getContactsCount(){
+        String countQuery = "SELECT * FROM " + Util.TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int res = cursor.getCount();
+        cursor.close();
+        return res;
     }
 
 }
