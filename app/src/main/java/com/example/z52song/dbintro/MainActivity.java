@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         dbHandler.addContact(new Contact("Bob", "22222222222"));
         dbHandler.addContact(new Contact("Cindy", "333333333333"));
 
+        //read all elements on database
         Log.d("Reading", "Reading all contacts");
         List<Contact> contactList = dbHandler.getAllContacts();
 
@@ -32,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
             String log = "ID: " + c.getId() + " , Name: "+ c.getName()+" , Phone: "+ c.getPhoneNumber();
             Log.d("Result", log);
         }
+
+        //get one contact
+        Contact oneContact = dbHandler.getContact(1);
+        Log.d("One Contact", "ID: " + oneContact.getId() + " , Name: "+ oneContact.getName()+" , Phone: "+ oneContact.getPhoneNumber());
+
+        //update contact
+        oneContact.setName("pauloooooooooo");
+        int newContact = dbHandler.updateContact(oneContact);
+        Log.d("One Contact", "updated! ID: " + oneContact.getId() + " , Name: "+ oneContact.getName()+" , Phone: "+ oneContact.getPhoneNumber());
+
 
     }
 }

@@ -18,7 +18,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(@Nullable Context context) {
         super(context, Util.DATABASE_NAME, null, Util.DATABASE_VERSION);
 
-
     }
 
     @Override
@@ -33,10 +32,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
         //drop is deleting
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ Util.TABLE_NAME);
-
         //create table again
         onCreate(sqLiteDatabase);
     }
@@ -106,4 +103,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return contactList;
     }
 
+    //update Contact
+    public int updateContact(Contact contact){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Util.KEY_NAME, contact.getName());
+        values.put(Util.KEY_PHONE_NAMBER, contact.getPhoneNumber());
+
+        //update row
+        return db.update(Util.TABLE_NAME,values,Util.KEY_ID+"=?",
+                new String[] {String.valueOf(contact.getId())});
+
+    }
+
 }
+
+
+
+
+
