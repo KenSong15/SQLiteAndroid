@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("GetOne||", "updated! ID: " + oneContact.getId() + " , Name: "+ oneContact.getName()+" , Phone: "+ oneContact.getPhoneNumber());
 
         //delete contact
-        //TODO delete does not work...
+        //TODO delete work but not having a proper way to show the result.
         //dbHandler.deleteContact(dbHandler.getContact(5));
 
         //count the number of row in table
